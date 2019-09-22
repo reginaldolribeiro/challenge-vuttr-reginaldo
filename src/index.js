@@ -16,10 +16,6 @@ mongoose.connection.on('connected', () => {
 
 app.use(require('./routes'));
 
-app.get('/', (req,res) => {    
-    return res.send("Hello World!")
-})
-
 app.listen(3000, () => {
     console.log("Server is running!")
 })

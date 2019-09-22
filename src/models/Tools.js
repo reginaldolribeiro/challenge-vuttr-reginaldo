@@ -1,10 +1,16 @@
 const mongoose = require('mongoose')
 
 const ToolsSchema = new mongoose.Schema({
-    title: String,
-    link: String,
+    title: {
+        type: String,
+        required: true
+    },
+    link: {
+        type: String,
+        required: true
+    },
     description: String,
-    tags: String
+    tags: Array
 },
 {
     timestamps: true

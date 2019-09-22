@@ -4,16 +4,29 @@ module.exports = {
 
     async findAll(req, res){
 
-        if(req.query){
+        console.log("Printando a query " + req.query)
+        if(req.query.tag !== undefined){
+            console.log(" *** Query ***")
             const { tag } = req.query
-            console.log(tag)
+            console.log("Tag " + tag)
+            const tools = await Tools.find({ tags: tag })
+            return res.json(tools)
         } else {
+            console.log(" *** Sem Query ***")
             const tools = await Tools.find().sort('-createdAt')
             tools.map(t => console.log(t.title))
             return res.json(tools)
         }
 
+        
         return res.send()
+
+        // await Tools.find().sort('-createdAt')
+        //     .then(tools => {
+        //         //console.log("Promise " + tools)
+        //         res.json(tools)
+        //     })
+        //     .catch(err => err)
 
     },
 
@@ -39,7 +52,7 @@ module.exports = {
         console.log(req.body)
         
         const { title, link, description, tags } = req.body
-        if(!title || !link) return res.status(400).json({ error: "Campos obrigatorios"})
+        if(!title || !link) return res.status(400).json({ error: "Campos obrigatorios nao foram informados."})
 
         const tool = await Tools.create({
             title, link, description, tags
@@ -49,7 +62,10 @@ module.exports = {
     },
 
     async delete(req,res){
-        await Tools.findByIdAndRemove(req.params.id)
+        const { id } = req.params
+        if(!id) return res.status(400).json({ error: "ID nao informado"})
+
+        await Tools.findByIdAndRemove(id)
 
         return res.status(204).send()
     }
