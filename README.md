@@ -1,4 +1,6 @@
-# challenge-vuttr-reginaldo
-Desafio backend Bossabox
+# Challenge VUTTR backend Bossabox
+API VUTTR (Very Useful Tools to Remember), um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.
 
-# Verificar o uso do Morgan (para logs de chamadas a API)
+## Dependencias
+ * [Node](https://nodejs.org/en/) 10.16.3
+ * [Yarn](https://yarnpkg.com/pt-BR/) 1.17.3
