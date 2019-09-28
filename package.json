@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/reginaldolribeiro/challenge-vuttr-reginaldo.git",
-  "author": "Reginaldo <reginaldolribeiro@gmail.com>",
+  "author": "Reginaldo Luiz Ribeiro Filho <reginaldolribeiro@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.1",
     "swagger-jsdoc": "^3.4.0",
     "swagger-ui-express": "^4.1.1"
