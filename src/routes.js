@@ -9,11 +9,14 @@ routes.post('/authenticate', LoginController.authenticate)
 
 routes.use(authMiddleware)
 
-routes.get('/tools', ToolsController.findAll)
-routes.get('/tools/:id', ToolsController.findById)
-routes.post('/tools', ToolsController.store)
-routes.put('/tools/:id', ToolsController.update)
-routes.delete('/tools/:id', ToolsController.delete)
+routes
+    .get('/tools', ToolsController.findAll)
+    .post('/tools', ToolsController.store)
+
+routes
+    .get('/tools/:id', ToolsController.findById)
+    .put('/tools/:id', ToolsController.update)
+    .delete('/tools/:id', ToolsController.delete)
 
 routes.get('/', (req,res) => {
     return res.send({ ok: true, user: req.userId })

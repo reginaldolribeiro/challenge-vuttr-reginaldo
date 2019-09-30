@@ -25,8 +25,6 @@ module.exports = {
 
             user.password_hash = undefined
 
-            // return res.send({ user })
-
             return res.send({ 
                 user, 
                 token: generateToken({ id: user.id }),
@@ -41,33 +39,21 @@ module.exports = {
     async authenticate(req,res){
         
         const { email, password_hash } = req.body
-
-        // aqui precisa do password para comparar se o que ele esta passando ta correto
+        
         const user = await User.findOne({ email }).select('+password_hash')
 
         if(!user)
-            return res.status(400).send({ error: "User not found!" })
+            return res.status(404).send({ error: "User not found!" })
 
         if(!await bcrypt.compare(password_hash, user.password_hash))
             return res.status(400).send({ error: "Invalid password!" })
 
         user.password_hash = undefined
 
-        // const token = jwt.sign({ id: user.id }, authConfig.secret, {
-        //     expiresIn: 86400
-        // })       
-
         return res.send({ 
             user, 
             token: generateToken({ id: user.id }),
         })
-
-    },
-
-    async findAll(req, res) {
-
-        const users = await User.find()
-        return res.json(users)
 
     }
 
