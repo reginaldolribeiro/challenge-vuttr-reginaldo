@@ -346,6 +346,13 @@
                 "token": "string"
             }
         },
+        "id": {
+            "properties": {
+                "id": {
+                    "type": "ObjectId"
+                }
+            }
+        },
         "Tool": {
             "type": "object",
             "properties": {
