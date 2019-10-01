@@ -1,9 +1,7 @@
-# Challenge VUTTR backend Bossabox
-API VUTTR (Very Useful Tools to Remember), um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags. Utilizando NodeJS com MongoDB e autenticação via token JWT.
+# Challenge backend Bossabox - VUTTR API
+API VUTTR (Very Useful Tools to Remember), um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags. Utilizando [NodeJS](https://nodejs.org/en/), [MongoDB](https://www.mongodb.com/), autenticação via token JWT e o [Swagger](https://swagger.io/) para documentação da API.
 
-## Dependências
- * [MongoDB](https://www.mongodb.com/)
- * [Swagger](https://swagger.io/)
+## Dependências 
  * [Node](https://nodejs.org/en/) 10.16.3
  * [Yarn](https://yarnpkg.com/pt-BR/) 1.17.3
  * [Express](https://expressjs.com/pt-br/)
