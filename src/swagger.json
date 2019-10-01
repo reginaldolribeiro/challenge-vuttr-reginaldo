@@ -16,8 +16,8 @@
             "description": "Local Dev"
         },
         {
-            "url": "https://heroku-ban.com/vuttr-api",
-            "description": "Remote Heroku"
+            "url": "https://challenge-vuttr-reginaldo.herokuapp.com",
+            "description": "Heroku"
         }
     ],
     "basePath": "/vuttr-api",
@@ -27,7 +27,7 @@
     "produces": [
         "application/json"
     ],
-    "schemes": ["http"],
+    "schemes": ["http","https"],
     "paths": {
         "/register": {
             "post": {
