@@ -6,10 +6,14 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../src/swagger.json')
 
 const app = express()
+//{ useFindAndModify: false }
 
-mongoose.connect(process.env.APP_DB_CONNECTION, { useFindAndModify: false })
-    .then(conn => console.log("Connected to MongoDB Database!"))
-    .catch(err => console.log("Error connecting to MongoDB Database!"))
+mongoose.connect(process.env.APP_DB_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(conn => console.log("Connected to MongoDB Database!"))
+.catch(err => console.log("Error connecting to MongoDB Database!"))
 
 // mongoose.connect("mongodb+srv://" + process.env.APP_DB_CONNECTION,
 //     { useFindAndModify: false })
