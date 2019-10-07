@@ -8,7 +8,7 @@ RUN yarn --silent
 
 RUN yarn global add nodemon --silent
 
-COPY . .
+COPY . . 
 
 EXPOSE 3000
 

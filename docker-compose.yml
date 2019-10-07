@@ -1,18 +1,12 @@
-version: '3'
-services:
-  db:
-    image: 'mongo'
-    container_name: MONGODB_VUTTR
-    ports:
-      - 27017:27017
-    volumes:
-      - ./data/db:/data/db
+version: "3"
 
-  backend:
+services:
+  server:
     container_name: NODEJS_VUTTR
-    build: .
+    build: "."
     volumes:
-      - ./:/challenge-vuttr-reginaldo      
+      - ./:/challenge-vuttr-reginaldo
+      - ./node_modules:/challenge-vuttr-reginaldo/node_modules
     environment:
       NODE_ENV: development
     depends_on:
@@ -20,4 +14,12 @@ services:
     links:
       - db
     ports:
-      - 3000:3000
+      - "3000:3000"
+
+  db:
+    image: "mongo"
+    container_name: MONGODB_VUTTR
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
