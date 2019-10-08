@@ -26,14 +26,15 @@ API VUTTR (Very Useful Tools to Remember), um simples repositório para gerencia
 ### Setup
 1. Clonar e acessar o repositório
 ```
-git clone https://github.com/reginaldolribeiro/challenge-vuttr-reginaldo.git
-cd challenge-vuttr-reginaldo
+$ git clone https://github.com/reginaldolribeiro/challenge-vuttr-reginaldo.git
+$ cd challenge-vuttr-reginaldo
 ```
-2. Criar o arquivo .env na raiz do projeto (com base no .env.example), com suas configurações de URL de conexão com o MongoDB e a APP_SECRET de sua preferência, utilizada para o token JWT.
+2. Criar o arquivo .env na raiz do projeto (com base no .env.example) e preencher a APP_SECRET com o valor de sua preferência (utilizada para o token JWT).
 
 3. Subir a API com o [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 ```
-docker-compose up
+$ yarn
+$ docker-compose up
 ```
 
 ### Dependências 
