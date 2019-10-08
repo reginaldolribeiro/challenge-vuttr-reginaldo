@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 
 module.exports = {
 
-    // TODO: Implementar paginacao  
     async findAll(req, res) {
 
         let tools = null
