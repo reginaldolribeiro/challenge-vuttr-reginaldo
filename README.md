@@ -1,4 +1,4 @@
-# Challenge backend Bossabox - VUTTR API
+# VUTTR API
 API VUTTR (Very Useful Tools to Remember), um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags. Utilizando [NodeJS](https://nodejs.org/en/), [MongoDB](https://www.mongodb.com/), autenticação via token JWT e o [Swagger](https://swagger.io/) para documentação da API.
 
 ### Se registrando e fazendo a autorização
