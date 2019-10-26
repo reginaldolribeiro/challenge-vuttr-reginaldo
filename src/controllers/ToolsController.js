@@ -13,16 +13,14 @@ module.exports = {
             sort: sort || '-createdAt'
         }
 
-        console.log("Sort " + sort)
-
         if (req.query.tag !== undefined) {
             const { tag } = req.query
-            tools = await Tools.paginate({ tags: tag }, options)
+            tools = await Tools.paginate({ tags: tag }, options )
         } else {
             tools = await Tools.paginate({}, options)
         }
 
-        if (tools.length === 0) return res.status(404).json({ error: "Tools not found!" })
+        if (tools.totalDocs === 0) return res.status(404).json({ error: "Tools not found!" })
 
         return res.json(tools)
 
@@ -40,6 +38,7 @@ module.exports = {
         try {
             const tool = await Tools.findById(id)
             if (!tool) return res.status(404).json({ error: "Tool not found!" })
+            
             return res.json(tool)
         } catch (err) {
             return res.status(400).send({ error: "Error loading tool!" })
@@ -66,8 +65,7 @@ module.exports = {
         }
     },
 
-    async store(req, res) {
-        //console.log(req.body)
+    async store(req, res) {        
 
         const { title, link, description, tags } = req.body
         if (!title || !link) return res.status(400).json({ error: "Invalid Tool!" })

@@ -55,7 +55,17 @@ describe('Tools Tests API', () => {
             .set('Authorization', `Bearer ${token}`)
 
         expect(response.status).toBe(200)
-        expect(response.body[0].title).toBe('hotel')
+        expect(response.body.docs[0].title).toBe('hotel')
+        expect(response.body.docs[0]).toHaveProperty('title', 'hotel')
+    })
+
+    it('it should return all tools with paginate fields when access GET with a valid token', async () => {
+        const response = await request
+            .get('/vuttr-api/tools')
+            .set('Authorization', `Bearer ${token}`)
+
+        expect(response.body).toHaveProperty('limit')
+        expect(response.body).toHaveProperty('page')
     })
 
     it('it should return a tool when passing a valid tag', async () => {
@@ -66,7 +76,7 @@ describe('Tools Tests API', () => {
             .set('Authorization', `Bearer ${token}`)
 
         expect(response.status).toBe(200)
-        expect(response.body[0].title).toBe('hotel')
+        expect(response.body.docs[0]).toHaveProperty('title', 'hotel')
     })
 
     it('it should not return a tool when passing a invalid tag', async () => {
@@ -90,7 +100,7 @@ describe('Tools Tests API', () => {
 
     it('it should not return a tool when passing a invalid ID', async () => {
         const invalidId = toolCreated._id+'1'
-
+        
         const response = await request
             .get(`/vuttr-api/tools/${invalidId}`)
             .set('Authorization', `Bearer ${token}`)
