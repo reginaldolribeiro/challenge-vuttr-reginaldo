@@ -49,7 +49,7 @@ describe('Tools Tests API', () => {
         expect(response.status).toBe(401)
     })
 
-    it('it should return tools when access GET with a valid token', async () => {
+    it('it should return all tools when access GET with a valid token', async () => {
         const response = await request
             .get('/vuttr-api/tools')
             .set('Authorization', `Bearer ${token}`)

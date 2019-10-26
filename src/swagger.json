@@ -27,7 +27,10 @@
     "produces": [
         "application/json"
     ],
-    "schemes": ["http","https"],
+    "schemes": [
+        "http",
+        "https"
+    ],
     "paths": {
         "/register": {
             "post": {
@@ -35,15 +38,17 @@
                     "Register"
                 ],
                 "summary": "Register a new user",
-                "parameters": [{
-                    "in": "body",
-                    "name": "User",
-                    "description": "User to create",
-                    "required": true,
-                    "schema": {
-                        "$ref": "#/definitions/UserRegister"
-                    }                    
-                }],                
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "User",
+                        "description": "User to create",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UserRegister"
+                        }
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -69,15 +74,17 @@
                     "Authentication"
                 ],
                 "summary": "Authentication",
-                "parameters": [{
-                    "in": "body",
-                    "name": "User Authenticate",
-                    "description": "User Authenticate Object",
-                    "required": true,
-                    "schema": {
-                        "$ref": "#/definitions/UserAuthenticate"
-                    }                    
-                }],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "User Authenticate",
+                        "description": "User Authenticate Object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UserAuthenticate"
+                        }
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -103,12 +110,36 @@
                     "Tools"
                 ],
                 "summary": "Get tools",
-                "parameters": [{
-                    "in": "query",
-                    "name": "tag",
-                    "required": false,
-                    "type": "string"
-                }],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "tag",
+                        "description": "Search tools by specific tag",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Page",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Tools limit per page",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sort",
+                        "description": "Field used to sort a query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -123,23 +154,27 @@
                         "description": "Tools not found."
                     }
                 },
-                "security": [{
-                    "JWT" : []
-                }]
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
                     "Tools"
                 ],
                 "summary": "Create a new tool",
-                "parameters": [{
-                    "in": "body",
-                    "name": "Tool",                    
-                    "required": true,
-                    "schema": {
-                        "$ref": "#/definitions/ToolRequest"
-                    }                    
-                }],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Tool",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ToolRequest"
+                        }
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -157,9 +192,11 @@
                         "description": "Invalid tool."
                     }
                 },
-                "security": [{
-                    "JWT" : []
-                }]
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
             }
         },
         "/tools/{id}": {
@@ -202,9 +239,11 @@
                         "description": "Tool not found."
                     }
                 },
-                "security": [{
-                    "JWT" : []
-                }]
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
             },
             "put": {
                 "summary": "Update tool with given ID",
@@ -227,8 +266,8 @@
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/ToolRequest"
-                        }                    
-                    }                    
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -247,9 +286,11 @@
                         "description": "Tool not found."
                     }
                 },
-                "security": [{
-                    "JWT" : []
-                }]
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete tool with given ID",
@@ -278,9 +319,11 @@
                         "description": "Tool not found."
                     }
                 },
-                "security": [{
-                    "JWT" : []
-                }]
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
             }
         }
     },
@@ -336,7 +379,7 @@
                     "type": "string"
                 }
             }
-        },        
+        },
         "UserResponse": {
             "type": "object",
             "properties": {
@@ -386,7 +429,7 @@
         },
         "ToolRequest": {
             "type": "object",
-            "properties": {                
+            "properties": {
                 "title": {
                     "type": "string"
                 },
@@ -403,6 +446,6 @@
                     }
                 }
             }
-        }        
+        }
     }
 }
