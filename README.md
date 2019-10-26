@@ -1,5 +1,5 @@
 # VUTTR API
-API VUTTR (Very Useful Tools to Remember), um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags. Utilizando [NodeJS](https://nodejs.org/en/), [MongoDB](https://www.mongodb.com/), autenticação via token JWT e o [Swagger](https://swagger.io/) para documentação da API.
+API VUTTR (Very Useful Tools to Remember), um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags. Utilizando [NodeJS](https://nodejs.org/en/), [MongoDB](https://www.mongodb.com/), autenticação via token JWT, [Jest](https://jestjs.io/docs/pt-BR/getting-started.html) para testes e o [Swagger](https://swagger.io/) para documentação da API.
 
 ### Se registrando e fazendo a autorização
 ![register-user](https://user-images.githubusercontent.com/5490660/66173008-866cd000-e624-11e9-8924-ad37ba13da91.gif)
@@ -43,4 +43,5 @@ $ docker-compose up
  * [Express](https://expressjs.com/pt-br/)
  * [Mongoose](https://mongoosejs.com/)
  * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+ * [Jest](https://jestjs.io/docs/pt-BR/getting-started.html)
  
