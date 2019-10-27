@@ -11,7 +11,7 @@ describe('Users tests API', () => {
     const rawPassword = '123'
     const invalidPassword = '12'
     let userCreated
-    
+
     const user = {
         name: 'Reginaldo',
         email: 'reginaldo@gmail.com',
@@ -44,9 +44,42 @@ describe('Users tests API', () => {
                 email: 'joao@gmail.com',
                 password_hash: '123'
             })
-        
+
         expect(response.status).toBe(200)
-        expect(response.body).toHaveProperty('token')        
+        expect(response.body).toHaveProperty('token')
+    })
+
+    it('should not register user already exists', async () => {
+        const response = await request
+            .post("/vuttr-api/register")
+            .send({
+                name: userCreated.name,
+                email: userCreated.email,
+                password_hash: userCreated.password_hash
+            })
+
+        expect(response.status).toBe(400)
+    })
+
+    it('should failed registration when request is invalid', async () => {
+        const response = await request
+            .post("/vuttr-api/register")
+            .send({
+                name: 'User'
+            })
+
+        expect(response.status).toBe(400)
+    })
+
+    it('should not authenticate when user not found', async () => {
+        const response = await request
+            .post("/vuttr-api/authenticate")
+            .send({
+                email: 'josedasilva@gmail.com',
+                password_hash: rawPassword
+            })
+
+        expect(response.status).toBe(404)
     })
 
     it('should authenticate user with valid credentials', async () => {

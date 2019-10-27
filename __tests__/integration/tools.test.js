@@ -34,7 +34,7 @@ describe('Tools Tests API', () => {
         toolCreated = await Tools.create(tool)
     })
 
-    it('it should receive 200 OK when access a route who needs authentication using a valid jwt', async () => {
+    it('should receive 200 OK when access a route who needs authentication using a valid jwt', async () => {
         const response = await request
             .get('/vuttr-api/tools')
             .set('Authorization', `Bearer ${token}`)
@@ -42,14 +42,38 @@ describe('Tools Tests API', () => {
         expect(response.status).toBe(200)
     })
 
-    it('it should receive 401 Unauthorized when access a route who needs authentication without token', async () => {
+    it('should receive 401 Unauthorized when access a route who needs authentication without token', async () => {
         const response = await request
             .get('/vuttr-api/tools')
 
         expect(response.status).toBe(401)
     })
 
-    it('it should return all tools when access GET with a valid token', async () => {
+    it('should not be able to access private routes with invalid jwt token', async () => {
+        const response = await request
+            .get('/vuttr-api/tools')
+            .set('Authorization', `Bearer 123123`)
+
+        expect(response.status).toBe(401)
+    })
+
+    it('should not be able to access private routes with jwt token that has no 2 parts', async () => {
+        const response = await request
+            .get('/vuttr-api/tools')
+            .set('Authorization', `3123`)
+
+        expect(response.status).toBe(401)
+    })
+
+    it('should not be able to access private routes with jwt token that has no Bearer word', async () => {
+        const response = await request
+            .get('/vuttr-api/tools')
+            .set('Authorization', `Bearerr 3123`)
+
+        expect(response.status).toBe(401)
+    })
+
+    it('should return all tools when access GET with a valid token', async () => {
         const response = await request
             .get('/vuttr-api/tools')
             .set('Authorization', `Bearer ${token}`)
@@ -59,7 +83,7 @@ describe('Tools Tests API', () => {
         expect(response.body.docs[0]).toHaveProperty('title', 'hotel')
     })
 
-    it('it should return all tools with paginate fields when access GET with a valid token', async () => {
+    it('should return all tools with paginate fields when access GET with a valid token', async () => {
         const response = await request
             .get('/vuttr-api/tools')
             .set('Authorization', `Bearer ${token}`)
@@ -68,7 +92,7 @@ describe('Tools Tests API', () => {
         expect(response.body).toHaveProperty('page')
     })
 
-    it('it should return a tool when passing a valid tag', async () => {
+    it('should return a tool when passing a valid tag', async () => {
         const tag = toolCreated.tags[0]
 
         const response = await request
@@ -79,8 +103,8 @@ describe('Tools Tests API', () => {
         expect(response.body.docs[0]).toHaveProperty('title', 'hotel')
     })
 
-    it('it should not return a tool when passing a invalid tag', async () => {
-        const invalidTag = toolCreated.tags[0]+'1'
+    it('should not return a tool when passing a invalid tag', async () => {
+        const invalidTag = toolCreated.tags[0] + '1'
 
         const response = await request
             .get(`/vuttr-api/tools?tag=${invalidTag}`)
@@ -89,7 +113,7 @@ describe('Tools Tests API', () => {
         expect(response.status).toBe(404)
     })
 
-    it('it should return a tool when passing a valid ID', async () => {
+    it('should return a tool when passing a valid ID', async () => {
         const response = await request
             .get(`/vuttr-api/tools/${toolCreated._id}`)
             .set('Authorization', `Bearer ${token}`)
@@ -98,9 +122,9 @@ describe('Tools Tests API', () => {
         expect(response.body.title).toBe('hotel')
     })
 
-    it('it should not return a tool when passing a invalid ID', async () => {
-        const invalidId = toolCreated._id+'1'
-        
+    it('should not return a tool when passing a invalid ID', async () => {
+        const invalidId = toolCreated._id + '1'
+
         const response = await request
             .get(`/vuttr-api/tools/${invalidId}`)
             .set('Authorization', `Bearer ${token}`)
@@ -108,7 +132,7 @@ describe('Tools Tests API', () => {
         expect(response.status).toBe(400)
     })
 
-    it('it should not return a tool when passing a inexistent ID', async () => {
+    it('should not return a tool when passing a inexistent ID', async () => {
         const someId = mongoose.Types.ObjectId()
 
         const response = await request
@@ -118,7 +142,7 @@ describe('Tools Tests API', () => {
         expect(response.status).toBe(404)
     })
 
-    it('it should create a tool', async () => {
+    it('should create a tool', async () => {
         const response = await request
             .post('/vuttr-api/tools')
             .send({
@@ -133,7 +157,20 @@ describe('Tools Tests API', () => {
         expect(response.body.title).toBe('hotel')
     })
 
-    it('it should update a tool', async () => {
+    it('should not create a tool when invalid params', async () => {
+        const response = await request
+            .post('/vuttr-api/tools')
+            .send({
+                link: tool.link,
+                description: tool.description,
+                tags: tool.tags
+            })
+            .set('Authorization', `Bearer ${token}`)
+
+        expect(response.status).toBe(400)
+    })
+
+    it('should update a tool', async () => {
         const response = await request
             .put(`/vuttr-api/tools/${toolCreated._id}`)
             .send({
@@ -146,12 +183,58 @@ describe('Tools Tests API', () => {
         expect(response.body.link).toBe(toolCreated.link)
     })
 
-    it('it should delete a tool', async () => {
+    it('should not update a tool when ID is not passed', async () => {
+        let invalidId = null
+
+        const response = await request            
+            .put(`/vuttr-api/tools/${invalidId}`)
+            .send({
+                title: 'hotel changed'
+            })
+            .set('Authorization', `Bearer ${token}`)
+
+        expect(response.status).toBe(400)
+    })
+
+    it('should not update a tool when passing invalid ID', async () => {
+        const invalidId = '34431'
+
+        const response = await request
+            .put(`/vuttr-api/tools/${invalidId}`)
+            .send({
+                title: 'hotel changed'
+            })
+            .set('Authorization', `Bearer ${token}`)
+
+        expect(response.status).toBe(400)
+    })
+
+    it('should delete a tool', async () => {
         const response = await request
             .delete(`/vuttr-api/tools/${toolCreated._id}`)
             .set('Authorization', `Bearer ${token}`)
 
         expect(response.status).toBe(204)
+    })
+
+    it('should not delete a tool when ID is invalid', async () => {
+        const invalidId = toolCreated._id+'87'
+
+        const response = await request
+            .delete(`/vuttr-api/tools/${invalidId}`)
+            .set('Authorization', `Bearer ${token}`)
+
+        expect(response.status).toBe(400)
+    })
+
+    it('should not delete a tool when ID is not passed', async () => {
+        const invalidId = null
+
+        const response = await request
+            .delete(`/vuttr-api/tools/${invalidId}`)
+            .set('Authorization', `Bearer ${token}`)
+
+        expect(response.status).toBe(400)
     })
 
 

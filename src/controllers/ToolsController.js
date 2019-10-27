@@ -33,8 +33,6 @@ module.exports = {
             return res.status(400).json({ error: "Invalid ID!" })
         }
 
-        if (!id) return res.status(400).json({ error: "ID is required!" })
-
         try {
             const tool = await Tools.findById(id)
             if (!tool) return res.status(404).json({ error: "Tool not found!" })
@@ -53,8 +51,6 @@ module.exports = {
             return res.status(400).json({ error: "Invalid ID!" })
         }
 
-        if (!id) return res.status(400).json({ error: "ID is required!" })
-
         try {
             const tool = await Tools.findByIdAndUpdate(id, req.body, {
                 new: true
@@ -68,7 +64,9 @@ module.exports = {
     async store(req, res) {        
 
         const { title, link, description, tags } = req.body
-        if (!title || !link) return res.status(400).json({ error: "Invalid Tool!" })
+        if (!title || !link){            
+            return res.status(400).json({ error: "Invalid Tool!" })
+        }
 
         try {
             const tool = await Tools.create({
@@ -85,10 +83,8 @@ module.exports = {
         const { id } = req.params
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(404).json({ error: "Invalid ID!" })
+            return res.status(400).json({ error: "Invalid ID!" })
         }
-
-        if (!id) return res.status(400).json({ error: "ID is required!" })
 
         try {
             await Tools.findByIdAndRemove(id)

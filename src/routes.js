@@ -7,9 +7,6 @@ const authMiddleware = require('../src/middlewares/auth')
 routes.post('/register', LoginController.register)
 routes.post('/authenticate', LoginController.authenticate)
 
-routes.get('/', (req,res) => {
-    return res.send({ ok: true, user: req.userId })
-})
 routes.use(authMiddleware)
 
 routes
