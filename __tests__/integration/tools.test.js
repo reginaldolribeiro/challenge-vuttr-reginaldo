@@ -33,64 +33,8 @@ describe('Tools Tests API', () => {
         await Tools.deleteMany({})
         toolCreated = await Tools.create(tool)
     })
-
-    it('should receive 200 OK when access a route who needs authentication using a valid jwt', async () => {
-        const response = await request
-            .get('/vuttr-api/tools')
-            .set('Authorization', `Bearer ${token}`)
-
-        expect(response.status).toBe(200)
-    })
-
-    it('should receive 401 Unauthorized when access a route who needs authentication without token', async () => {
-        const response = await request
-            .get('/vuttr-api/tools')
-
-        expect(response.status).toBe(401)
-    })
-
-    it('should not be able to access private routes with invalid jwt token', async () => {
-        const response = await request
-            .get('/vuttr-api/tools')
-            .set('Authorization', `Bearer 123123`)
-
-        expect(response.status).toBe(401)
-    })
-
-    it('should not be able to access private routes with jwt token that has no 2 parts', async () => {
-        const response = await request
-            .get('/vuttr-api/tools')
-            .set('Authorization', `3123`)
-
-        expect(response.status).toBe(401)
-    })
-
-    it('should not be able to access private routes with jwt token that has no Bearer word', async () => {
-        const response = await request
-            .get('/vuttr-api/tools')
-            .set('Authorization', `Bearerr 3123`)
-
-        expect(response.status).toBe(401)
-    })
-
-    it('should return all tools when access GET with a valid token', async () => {
-        const response = await request
-            .get('/vuttr-api/tools')
-            .set('Authorization', `Bearer ${token}`)
-
-        expect(response.status).toBe(200)
-        expect(response.body.docs[0].title).toBe('hotel')
-        expect(response.body.docs[0]).toHaveProperty('title', 'hotel')
-    })
-
-    it('should return all tools with paginate fields when access GET with a valid token', async () => {
-        const response = await request
-            .get('/vuttr-api/tools')
-            .set('Authorization', `Bearer ${token}`)
-
-        expect(response.body).toHaveProperty('limit')
-        expect(response.body).toHaveProperty('page')
-    })
+    
+    
 
     it('should return a tool when passing a valid tag', async () => {
         const tag = toolCreated.tags[0]
